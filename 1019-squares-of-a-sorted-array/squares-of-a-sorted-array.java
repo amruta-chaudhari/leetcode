@@ -1,25 +1,20 @@
 class Solution {
     public int[] sortedSquares(int[] nums) {
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>();
-        pQueue.add(nums[0] * nums[0]);
+        
+        int len = nums.length;
+        int[] result = new int[len];
+        int l = 0;
+        int r = len - 1;
 
-        for (int i = 1; i < nums.length; i++){
-            int sq = nums[i] * nums[i];
-            if (pQueue.peek() < sq ){
-                pQueue.add(sq);
+        for (int i = len-1; i >= 0; i--){
+            
+            if (Math.abs(nums[l]) > Math.abs(nums[r])) {
+                result[i] = nums[l] * nums[l];
+                l++;
             } else {
-                int t = pQueue.poll();
-                pQueue.add(sq);
-                pQueue.add(t);
+                result[i] = nums[r] * nums[r];
+                r--;
             }
-        }
-
-        int[] result = new int[nums.length];
-        int j = 0;
-
-        while(!pQueue.isEmpty()){
-            result[j] = pQueue.poll();
-            j++;
         }
 
         return result;
